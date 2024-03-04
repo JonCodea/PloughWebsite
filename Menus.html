@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow-x: hidden;
+      margin: 0;
+      background-color: rgb(68, 68, 68);
+    }
+
+    .slideshow-container {
+      max-width: 70%;
+      position: relative;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .mySlides {
+      position: relative;
+      display: none;
+      width: 100%;
+      height: 200vh;
+    }
+
+    .mySlides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mySlides::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.125);
+      background-size: cover;
+    }
+
+    .text {
+      position: absolute;
+      top: 30%;
+      left: 20%;
+      text-align: center;
+      color: #f2f2f2;
+    }
+
+    @media screen and (max-width: 800px) {
+      .text {
+        top: 10%;
+        left: 5%;
+      }
+    }
+
+
+    .description {
+      font-size: 16px;
+    }
+
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 12px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      margin-top: -22px;
+      padding: 16px;
+      color: rgb(122, 91, 91);
+      font-weight: bold;
+      font-size: 50px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+    }
+
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .dot {
+      transform: translateY(-50px);
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+
+    .active, .dot:hover {
+      background-color: #717171;
+    }
+
+    .fade {
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+
+    @keyframes fade {
+      from {opacity: .4}
+      to {opacity: 1}
+    }
+
+    .navbar {
+      overflow: hidden;
+      background-color: #DDDDDD;
+      padding-left: 20px;
+      padding-right: 20px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: black;
+      text-align: center;
+      padding: 40px 16px;
+      text-decoration: none;
+    }
+
+    .navbar a.logo {
+      float: left;
+      display: block;
+      padding: 20px 16px;
+      margin-right: 40px;
+    }
+
+    .navbar a:hover {
+      background-color: #ddd;
+      color: #E29F0E;
+    }
+
+    .navbar a.icon {
+      display: none;
+    }
+
+    @media screen and (max-width: 650px) {
+      .mySlides {
+        max-height: none;
+        height: calc(80vh - 120px);
+      }
+    }
+      @media screen and (max-width: 650px) {
+      .navbar a:not(:first-child) {
+        display: none;
+      }
+
+      .navbar a.icon {
+        float: right;
+        display: block;
+      }
+
+      .navbar.responsive {
+        position: relative;
+      }
+
+      .navbar.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      .navbar.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+        transition: display 0.3s ease;
+      }
+    }
+
+    .navbar.responsive.show a {
+      display: block !important;
+    }
+
+    @keyframes slideDown {
+      from {
+        max-height: 100px;
+      }
+      to {
+        max-height: 600px;
+      }
+    }
+
+    .navbar.responsive {
+      animation-name: slideDown;
+      animation-duration: 0.7s;
+    }
+
+    /*  Footer Styles */
+.larger-footer {
+  background-color: #333; 
+  padding: 30px; 
+  color: #fff; 
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-around;
+  align-items: flex-start; 
+}
+
+.footer-logo img {
+  max-width: 100px; 
+  height: auto;
+  margin-right: 20px; 
+}
+
+.footer-section {
+  flex: 1;
+  margin-bottom: 20px; 
+}
+
+.footer-section h3 {
+  font-size: 18px; 
+  color: #fff; 
+}
+
+/* Remove default list styles */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px; 
+}
+
+.footer-section a {
+  color: #fff; 
+  text-decoration: none;
+}
+
+.social-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  
+}
+
+.social-links img {
+  width: 30px; 
+  height: auto;
+  margin-right: 10px; 
+}
+
+.footer-bottom {
+  margin-top: 20px; 
+  text-align: center;
+  color: #fff; 
+}
+
+.footer-logo{
+  max-width: 200px;
+  margin-left: 5%;
+  margin-right: 10%;
+}
+
+
+/* Media query for smaller screens */
+@media screen and (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    text-align: center;
+    order: 1; 
+  }
+
+  .social-links {
+    order: 2; 
+    margin-top: 10px; 
+    align-self: center;
+  }
+
+  .footer-bottom {
+    order: 3; 
+    margin-top: 20px;
+  }
+
+  .footer-logo {
+    align-self: center;
+    order: 0; 
+    margin-bottom: 30px; 
+    max-width: 200px;
+  }
+
+  .footer-logo img {
+    display: block; 
+  }
+
+}
+  </style>
+</head>
+<body>
+
+<!-- Responsive Navbar with Logo -->
+<div class="navbar" id="myNavbar">
+  <a href="#" class="logo"><img src="Images/logo.png" alt="Logo" style="max-width: 60px; height: auto;"></a>
+  <a href="page.html">HOME</a>
+  <a href="Menus.html">MENU</a>
+  <a href="Drinks.html">DRINKS</a>
+  <a href="About.html">ABOUT</a>
+  <a href="Notices.html">NOTICES</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <span id="menuIcon">&#9776;</span>
+  </a>
+</div>
+
+<!-- Slideshow container -->
+<div class="slideshow-container">
+  <!-- Full-width images with title and description text -->
+  <div class="mySlides fade">
+    <img src="Images/Menu1.jpg">
+  </div>
+
+  <div class="mySlides fade">
+    <img src="Images/Menu2.jpg">
+  </div>
+
+  <div class="mySlides fade">
+    <img src="Images/Menu3.jpg">
+  </div>
+
+  <div class="mySlides fade">
+    <img src="Images/Menu4.jpg">
+  </div>
+
+  <div class="mySlides fade">
+    <img src="Images/Menu5.jpg">
+  </div>
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- Dots/Circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(4)"></span>
+  <span class="dot" onclick="currentSlide(5)"></span>
+</div>
+
+<footer class="larger-footer">
+  <div class="footer-container">
+    <img src="Images/logo2.png" alt="Plough Logo" class="footer-logo">
+    
+    <!-- Page Links -->
+    <div class="footer-section">
+      <h3>Site Map</h3>
+      <ul>
+        <li><a href="page.html">Home</a></li>
+        <li><a href="Menus.html">Menu</a></li>
+        <li><a href="Drinks.html">Drinks</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="Notices.html">Notices</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Media Links -->
+    <div class="footer-section">
+      <h3>Connect with Us</h3>
+      <ul>
+        <li><a href="https://facebook.com">Facebook</a></li>
+        <!-- Add more social icons as needed -->
+      </ul>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="footer-section">
+      <h3>Contact Us</h3>
+      <p>Dymchurch Road, New Romney, TN28 8UF</p>
+      <p>Email: theploughromney@gmail.com</p>
+      <p>Phone: 01797 363636</p>
+    </div>
+  </div>
+
+  <!-- Additional Footer Information -->
+  <div class="footer-bottom">
+    <p>&copy; 2024 The Plough Inn. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides((slideIndex += n));
+  }
+
+  function currentSlide(n) {
+    showSlides((slideIndex = n));
+  }
+
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+
+  function myFunction() {
+    var x = document.getElementById("myNavbar");
+    var icon = document.getElementById("menuIcon");
+
+    if (x.className === "navbar") {
+      x.className += " responsive";
+      icon.innerHTML = "&#10006;";
+    } else {
+      x.className = "navbar";
+      icon.innerHTML = "&#9776;";
+    }
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const menuType = urlParams.get("menu");
+
+  // Get the index of the menu type from the class names
+  const menuIndex = ["Lunch", "Dinner", "Snacks", "Menu4", "Menu5"].indexOf(menuType);
+
+  // Set the initial slide based on the index
+  let initialSlide = menuIndex + 1;
+  if (initialSlide === 0) {
+    initialSlide = 1; // Default to the first slide if menuType is not found
+  }
+
+  showSlides(initialSlide);
+</script>

@@ -157,6 +157,18 @@
 
 .navbar.closed {
   height: 0; /* When navbar is closed, set height to 0 */
+  overflow: hidden;
+}
+
+.navbar.closed a {
+  padding: 0;
+  margin: 0;
+  transition: padding 0.5s, margin 0.5s; /* Added transition for padding and margin */
+}
+
+.navbar.closed .navbar-content {
+  opacity: 0; /* Set opacity to 0 when navbar is closed */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
 }
 
 .navbar a {

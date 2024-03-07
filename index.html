@@ -16,27 +16,6 @@
       overflow-x: hidden;
       margin: 0;
     }
-    /* width */
-::-webkit-scrollbar {
-  width: 20px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
-  border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: blue; 
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #b30000; 
-}
 
     .slideshow-container {
       max-width: 100%;
@@ -808,6 +787,18 @@
               max-width: 100px; /* Adjust the size as needed */
               margin-top: 10px; /* Adjust the spacing as needed */
             }
+
+    
+            #scroll-progress {
+              height: 5px; /* Adjust the height of the progress bar */
+              background-color: rgba(0, 0, 255, 0.41); /* Set the color of the progress bar */
+              width: 0; /* Initially, the width is 0 */
+              position: fixed;
+              top: 0;
+              left: 0;
+              z-index: 9999; /* Set a high z-index to make sure it's above other elements */
+              transition: width 0.3s ease; /* Add a smooth transition effect */
+            }
     
 
 
@@ -818,6 +809,9 @@
   </style>
 </head>
 <body>
+
+<div id="scroll-progress"></div>
+
 
 <!-- Responsive Navbar with Logo -->
 <div class="navbar" id="myNavbar">
@@ -1049,6 +1043,15 @@
 
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.addEventListener('scroll', function () {
+        var scrollPosition = window.scrollY;
+        var documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var scrollPercentage = (scrollPosition / documentHeight) * 100;
+    
+        document.getElementById('scroll-progress').style.width = scrollPercentage + '%';
+    });
+  });
   let slideIndex = 1;
   showSlides(slideIndex);
 
